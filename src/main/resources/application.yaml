@@ -1,3 +1,31 @@
 spring:
   application:
-    name: api
+    name: api # Le nom de ton application — utilisé dans les logs
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/ahstudio
+    # ^ Adresse de la base de données
+    # jdbc = protocole Java pour parler aux bases de données
+    # postgresql = le type de base
+    # localhost = sur ta propre machine
+    # 5432 = port par défaut de PostgreSQL
+    # ahstudio = nom de la base de données
+
+    username: postgres # Utilisateur PostgreSQL
+    password: postgres # Mot de passe PostgreSQL
+    driver-class-name: org.postgresql.Driver
+    # ^ Le "traducteur" entre Java et PostgreSQL
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      # ^ Hibernate gère automatiquement les tables
+      # "update" = il crée ou modifie les tables selon tes entités Java
+      # En production on mettra "none" — on gère ça manuellement
+    show-sql: true # Affiche les requêtes SQL dans les logs — utile pour déboguer
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        # ^ Indique à Hibernate qu'on parle PostgreSQL spécifiquement
+server:
+  port: 8080 # L'API sera accessible sur http://localhost:8080
